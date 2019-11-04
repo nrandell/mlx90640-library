@@ -50,7 +50,7 @@ int MLX90640_GetFrameData(uint8_t slaveAddr, uint16_t *frameData)
     uint8_t cnt = 0;
     
     dataReady = 0;
-    while(dataReady == 0)
+    while((dataReady == 0) && (cnt < 5))
     {
         error = MLX90640_I2CRead(slaveAddr, 0x8000, 1, &statusRegister);
         if(error != 0)
@@ -58,6 +58,7 @@ int MLX90640_GetFrameData(uint8_t slaveAddr, uint16_t *frameData)
             return error;
         }    
         dataReady = statusRegister & 0x0008;
+        cnt = cnt + 1;
     }       
         
     while(dataReady != 0 && cnt < 5)
@@ -904,7 +905,7 @@ void ExtractAlphaParameters(uint16_t *eeData, paramsMLX90640 *mlx90640)
     }
     
     alphaScale = 0;
-    while(temp < 32768)
+    while((temp > 0) && (temp < 32768))
     {
         temp = temp*2;
         alphaScale = alphaScale + 1;
@@ -1068,7 +1069,7 @@ void ExtractKtaPixelParameters(uint16_t *eeData, paramsMLX90640 *mlx90640)
     }
     
     ktaScale1 = 0;
-    while(temp < 64)
+    while((temp > 0) && (temp < 64))
     {
         temp = temp*2;
         ktaScale1 = ktaScale1 + 1;
@@ -1160,7 +1161,7 @@ void ExtractKvPixelParameters(uint16_t *eeData, paramsMLX90640 *mlx90640)
     }
     
     kvScale = 0;
-    while(temp < 64)
+    while((temp > 0) && (temp < 64))
     {
         temp = temp*2;
         kvScale = kvScale + 1;
