@@ -12,6 +12,7 @@ RUN wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.60.tar.gz && \
 
 
 WORKDIR /build/mlx90640-library
+ADD https://api.github.com/repos/nrandell/mlx90640-library/git/refs/heads/master /tmp/bustcache
 RUN git clone https://github.com/nrandell/mlx90640-library.git . \
 	&& make \
 	&& mv libMLX90640_API.so /build
