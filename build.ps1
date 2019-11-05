@@ -1,1 +1,1 @@
-docker buildx build --platform linux/arm/v7 -t nrandell/mlx90640-library:0.4 --push -f Dockerfile .
+docker buildx build --platform linux/arm/v7 -t nrandell/mlx90640-library:0.5 --push -f Dockerfile .

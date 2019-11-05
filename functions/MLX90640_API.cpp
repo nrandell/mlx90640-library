@@ -60,6 +60,10 @@ int MLX90640_GetFrameData(uint8_t slaveAddr, uint16_t *frameData)
         dataReady = statusRegister & 0x0008;
         cnt = cnt + 1;
     }       
+    if (dataReady == 0) {
+        return -8;
+    }
+    cnt = 0;
         
     while(dataReady != 0 && cnt < 5)
     { 
